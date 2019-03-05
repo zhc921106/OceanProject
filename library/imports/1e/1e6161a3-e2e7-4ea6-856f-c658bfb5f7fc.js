@@ -1,6 +1,6 @@
 "use strict";
 cc._RF.push(module, '1e616Gj4udOpoVvxli/tff8', 'gm_util');
-// Script/Ui_Comps/gm_util.js
+// Script/Comps/gm_util.js
 
 "use strict";
 

@@ -964,7 +964,9 @@
     "windNode": {
       "__id__": 2
     },
+    "animTime": 0.5,
     "_darkNode": null,
+    "darkOpac": 160,
     "_id": ""
   },
   {

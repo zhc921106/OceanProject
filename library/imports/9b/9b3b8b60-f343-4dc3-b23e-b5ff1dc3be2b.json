@@ -956,6 +956,7 @@
     },
     "animTime": 0,
     "_darkNode": null,
+    "_darkOpac": 160,
     "_id": ""
   },
   {

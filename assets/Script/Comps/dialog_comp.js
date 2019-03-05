@@ -19,10 +19,10 @@ cc.Class({
         animTime:{
             default:0,
             tooltip: '背景弹窗动画时间',
-            type:cc.Integer
+            type:cc.Float, //cc.Integer
         } ,
         _darkNode:cc.Node,
-        _darkOpac:160,
+        darkOpac:160,
 
     },
     init(params){
@@ -80,7 +80,7 @@ cc.Class({
     },
     resetOpacity(opa){
         if(this._darkNode && cc.isValid(this._darkNode)){
-            opa = opa == undefined ? this._darkOpac : 0;
+            opa = opa == undefined ? this.darkOpac : 0;
             this._darkNode.opacity = opa;
         }
     },

@@ -1,172 +1,57 @@
-2019-03-05T07:10:15.196Z - normal: Load ~/.CocosCreator/settings.json
-2019-03-05T07:10:15.202Z - normal: checking language setting...
-2019-03-05T07:10:15.202Z - normal: Language: zh
-2019-03-05T07:10:16.131Z - success: protocol editor-framework registered
-2019-03-05T07:10:16.132Z - success: protocol app registered
-2019-03-05T07:10:16.132Z - success: protocol theme registered
-2019-03-05T07:10:16.132Z - success: protocol packages registered
-2019-03-05T07:10:16.133Z - success: protocol unpack registerred
-2019-03-05T07:10:16.133Z - success: protocol disable-commonjs registerred
-2019-03-05T07:10:16.301Z - normal: connected!
-2019-03-05T07:10:16.305Z - normal: Check project /Users/tuyoo/Documents/weChatGame/OceanProject
-2019-03-05T07:10:16.308Z - normal: Initializing project /Users/tuyoo/Documents/weChatGame/OceanProject
-2019-03-05T07:10:16.344Z - normal: Initializing Cocos2d
-2019-03-05T07:10:17.200Z - normal: Initializing Asset Database
-2019-03-05T07:10:17.247Z - success: protocol uuid registerred
-2019-03-05T07:10:17.247Z - success: protocol db registerred
-2019-03-05T07:10:17.247Z - success: protocol thumbnail registerred
-2019-03-05T07:10:17.248Z - normal: Loading editor/builtin packages
-2019-03-05T07:10:17.440Z - success: assets loaded
-2019-03-05T07:10:17.446Z - success: builder loaded
-2019-03-05T07:10:17.450Z - success: cocos-analytics loaded
-2019-03-05T07:10:17.457Z - success: console loaded
-2019-03-05T07:10:17.502Z - success: fb-instant-games loaded
-2019-03-05T07:10:17.519Z - success: google-instant-games loaded
-2019-03-05T07:10:17.527Z - success: hierarchy loaded
-2019-03-05T07:10:17.533Z - success: inspector loaded
-2019-03-05T07:10:17.535Z - success: keystore loaded
-2019-03-05T07:10:17.542Z - success: node-library loaded
-2019-03-05T07:10:17.545Z - success: package-asset loaded
-2019-03-05T07:10:17.546Z - success: preferences loaded
-2019-03-05T07:10:17.551Z - success: project-exporter loaded
-2019-03-05T07:10:17.581Z - success: project-importer loaded
-2019-03-05T07:10:17.587Z - success: project-settings loaded
-2019-03-05T07:10:17.620Z - success: ui-kit loaded
-2019-03-05T07:10:17.628Z - success: scene loaded
-2019-03-05T07:10:17.629Z - success: sprite-editor loaded
-2019-03-05T07:10:17.636Z - success: store loaded
-2019-03-05T07:10:17.644Z - success: timeline loaded
-2019-03-05T07:10:17.644Z - normal: Loading builtin packages
-2019-03-05T07:10:17.651Z - success: asset-db-debugger loaded
-2019-03-05T07:10:17.652Z - success: color-picker loaded
-2019-03-05T07:10:17.790Z - success: google-play-instant loaded
-2019-03-05T07:10:17.791Z - success: jsb-adapter loaded
-2019-03-05T07:10:17.809Z - success: package-manager loaded
-2019-03-05T07:10:18.037Z - success: qqplay-adapter loaded
-2019-03-05T07:10:18.046Z - success: sdkbox loaded
-2019-03-05T07:10:18.063Z - success: tester loaded
-2019-03-05T07:10:18.070Z - success: ui-grid loaded
-2019-03-05T07:10:18.074Z - success: ui-kit-preview-extra loaded
-2019-03-05T07:10:18.079Z - success: ui-kit-preview loaded
-2019-03-05T07:10:18.084Z - success: ui-tree loaded
-2019-03-05T07:10:18.084Z - success: weapp-adapter loaded
-2019-03-05T07:10:19.610Z - normal: Loading packages
-2019-03-05T07:10:19.617Z - normal: Watching packages
-2019-03-05T07:10:19.740Z - normal: Run Application
-2019-03-05T07:10:22.340Z - success: preview server running at http://localhost:7457
-2019-03-05T07:28:31.430Z - warn: Error: ipc timeout. message: scene:query-node, session: scene@renderer:4955
-2019-03-05T08:25:19.082Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T08:25:19.384Z - warn: The Asset used by component "cc.Sprite" in prefab "windows_main_guide_rule.prefab" is missing. Detailed information:
-Node path: "root/windowsNode/exchange_cash_bg_frame"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Missing uuid: "d8098ba3-075f-4d8c-bd5e-5a2838d46611"
-
-2019-03-05T08:25:19.386Z - warn: The Asset used by component "cc.Sprite" in prefab "windows_main_guide_rule.prefab" is missing. Detailed information:
-Node path: "root/windowsNode/sprite_panel_main"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Missing uuid: "7c947c7c-d0a8-4847-bcf9-66f30a606d88"
-
-2019-03-05T08:25:19.390Z - warn: The Asset used by component "cc.Sprite" in prefab "windows_main_guide_rule.prefab" is missing. Detailed information:
-Node path: "root/windowsNode/node_top_comp/sprite_title_deco"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Missing uuid: "7ce70ae6-7203-43f8-9df8-2df9f2c12287"
-
-2019-03-05T08:25:19.392Z - warn: The Asset used by component "cc.Sprite" in prefab "windows_main_guide_rule.prefab" is missing. Detailed information:
-Node path: "root/windowsNode/btn_close"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Missing uuid: "8aa6985e-a685-4b07-9a53-9b5d906a435f"
-
-2019-03-05T08:25:19.407Z - warn: The Asset used by component "cc.Sprite" in prefab "windows_main_guide_rule.prefab" is missing. Detailed information:
-Node path: "root/windowsNode/scrollview/view/content/guide_rule"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Missing uuid: "877fe9b6-1333-4395-add4-86979880d921"
-
-2019-03-05T08:25:19.416Z - warn: The Asset used by component "cc.Label" in prefab "windows_main_guide_rule.prefab" is missing. Detailed information:
-Node path: "root/windowsNode/btnMatchQuickStart/txt"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Missing uuid: "84099221-6a97-448f-bec2-81a8f82d9522"
-
-2019-03-05T08:25:19.420Z - warn: The Asset used by component "cc.Sprite" in prefab "windows_main_guide_rule.prefab" is missing. Detailed information:
-Node path: "root/windowsNode/btnMatchQuickStart"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Missing uuid: "0ba40275-943e-4e35-8539-2c19a3b33b7a"
-
-2019-03-05T08:30:53.553Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T08:36:01.738Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T08:41:54.799Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T08:54:29.434Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T08:54:53.581Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T08:55:44.973Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T09:02:51.721Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T09:05:57.874Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T11:54:26.734Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T11:55:32.297Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T11:57:59.246Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T12:00:40.638Z - warn: Script attached to "root" in prefab "windows_main_guide_rule.prefab" is missing or invalid. Detailed information:
-Node path: "root"
-Asset url: "db://assets/resources/test/windows_main_guide_rule.prefab"
-Script UUID: "ae81e53a-734f-4b53-b736-eb1d6bfd09d4"
-Class ID: "ae81eU6c09LU7c26x1r/QnU"
-
-2019-03-05T12:03:17.402Z - warn: Error: ipc timeout. message: scene:query-node, session: scene@renderer:104374
-2019-03-05T12:04:25.599Z - warn: Error: ipc timeout. message: scene:query-node, session: scene@renderer:105090
+2019-03-05T12:23:48.932Z - normal: Load ~/.CocosCreator/settings.json
+2019-03-05T12:23:48.938Z - normal: checking language setting...
+2019-03-05T12:23:48.938Z - normal: Language: zh
+2019-03-05T12:23:50.020Z - success: protocol editor-framework registered
+2019-03-05T12:23:50.021Z - success: protocol app registered
+2019-03-05T12:23:50.021Z - success: protocol theme registered
+2019-03-05T12:23:50.021Z - success: protocol packages registered
+2019-03-05T12:23:50.021Z - success: protocol unpack registerred
+2019-03-05T12:23:50.022Z - success: protocol disable-commonjs registerred
+2019-03-05T12:23:50.194Z - normal: connected!
+2019-03-05T12:23:50.198Z - normal: Check project /Users/tuyoo/Documents/weChatGame/OceanProject
+2019-03-05T12:23:50.202Z - normal: Initializing project /Users/tuyoo/Documents/weChatGame/OceanProject
+2019-03-05T12:23:50.204Z - normal: Initializing Cocos2d
+2019-03-05T12:23:51.714Z - normal: Initializing Asset Database
+2019-03-05T12:23:51.757Z - success: protocol uuid registerred
+2019-03-05T12:23:51.757Z - success: protocol db registerred
+2019-03-05T12:23:51.757Z - success: protocol thumbnail registerred
+2019-03-05T12:23:51.758Z - normal: Loading editor/builtin packages
+2019-03-05T12:23:51.961Z - success: assets loaded
+2019-03-05T12:23:51.967Z - success: builder loaded
+2019-03-05T12:23:51.971Z - success: cocos-analytics loaded
+2019-03-05T12:23:51.978Z - success: console loaded
+2019-03-05T12:23:52.024Z - success: fb-instant-games loaded
+2019-03-05T12:23:52.038Z - success: google-instant-games loaded
+2019-03-05T12:23:52.046Z - success: hierarchy loaded
+2019-03-05T12:23:52.052Z - success: inspector loaded
+2019-03-05T12:23:52.054Z - success: keystore loaded
+2019-03-05T12:23:52.061Z - success: node-library loaded
+2019-03-05T12:23:52.063Z - success: package-asset loaded
+2019-03-05T12:23:52.065Z - success: preferences loaded
+2019-03-05T12:23:52.070Z - success: project-exporter loaded
+2019-03-05T12:23:52.099Z - success: project-importer loaded
+2019-03-05T12:23:52.105Z - success: project-settings loaded
+2019-03-05T12:23:52.161Z - success: ui-kit loaded
+2019-03-05T12:23:52.168Z - success: scene loaded
+2019-03-05T12:23:52.170Z - success: sprite-editor loaded
+2019-03-05T12:23:52.176Z - success: store loaded
+2019-03-05T12:23:52.184Z - success: timeline loaded
+2019-03-05T12:23:52.184Z - normal: Loading builtin packages
+2019-03-05T12:23:52.198Z - success: asset-db-debugger loaded
+2019-03-05T12:23:52.199Z - success: color-picker loaded
+2019-03-05T12:23:52.318Z - success: google-play-instant loaded
+2019-03-05T12:23:52.326Z - success: jsb-adapter loaded
+2019-03-05T12:23:52.346Z - success: package-manager loaded
+2019-03-05T12:23:52.590Z - success: qqplay-adapter loaded
+2019-03-05T12:23:52.608Z - success: sdkbox loaded
+2019-03-05T12:23:52.614Z - success: tester loaded
+2019-03-05T12:23:52.622Z - success: ui-grid loaded
+2019-03-05T12:23:52.627Z - success: ui-kit-preview-extra loaded
+2019-03-05T12:23:52.632Z - success: ui-kit-preview loaded
+2019-03-05T12:23:52.637Z - success: ui-tree loaded
+2019-03-05T12:23:52.647Z - success: weapp-adapter loaded
+2019-03-05T12:23:54.129Z - normal: Loading packages
+2019-03-05T12:23:54.159Z - normal: Watching packages
+2019-03-05T12:23:54.289Z - normal: Run Application
+2019-03-05T12:23:56.001Z - warn: [db-task][init] Backup unused meta file: db://assets/resources/test.meta
+2019-03-05T12:23:58.051Z - success: preview server running at http://localhost:7457
