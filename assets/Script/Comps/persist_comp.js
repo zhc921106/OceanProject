@@ -27,12 +27,15 @@ cc.Class({
     _onLoadEnd(){
         this.setBlockInput(false);
     },
+
+    // 最上层屏蔽触摸
     _initMask(){
         this._blockComp = this.node.getComponent(cc.BlockInputEvents);
     },
     setBlockInput(isBlock){
         this._blockComp.enabled = isBlock;
     },
+    
     // _close(){},
     // start () {},
     // onEnable (){},
