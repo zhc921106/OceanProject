@@ -16,14 +16,28 @@ cc.Class({
     extends: cc.Component,
     properties: {},
     onLoad: function onLoad() {
-        // this.node.zIndex = util.max_zindex;
         // cc.game.addPersistRootNode(this.node);
-        this._init();
-        // cc.error('persist zIndex-',this.node.zIndex);
+        this._initMask();
+        this._regEvts();
+        // this.setBlockInput(false);
     },
-    _init: function _init() {}
+    _regEvts: function _regEvts() {
+        GM.EventCenter.listen(GM.EventType.GM_UI_LOADING_START, this._onLoadStart, this);
+        GM.EventCenter.listen(GM.EventType.GM_UI_LOADING_END, this._onLoadEnd, this);
+    },
+    _onLoadStart: function _onLoadStart() {
+        this.setBlockInput(true);
+    },
+    _onLoadEnd: function _onLoadEnd() {
+        this.setBlockInput(false);
+    },
+    _initMask: function _initMask() {
+        this._blockComp = this.node.getComponent(cc.BlockInputEvents);
+    },
+    setBlockInput: function setBlockInput(isBlock) {
+        this._blockComp.enabled = isBlock;
+    }
 }
-// _regEvts(){},
 // _close(){},
 // start () {},
 // onEnable (){},

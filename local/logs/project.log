@@ -1,57 +1,59 @@
-2019-03-05T12:23:48.932Z - normal: Load ~/.CocosCreator/settings.json
-2019-03-05T12:23:48.938Z - normal: checking language setting...
-2019-03-05T12:23:48.938Z - normal: Language: zh
-2019-03-05T12:23:50.020Z - success: protocol editor-framework registered
-2019-03-05T12:23:50.021Z - success: protocol app registered
-2019-03-05T12:23:50.021Z - success: protocol theme registered
-2019-03-05T12:23:50.021Z - success: protocol packages registered
-2019-03-05T12:23:50.021Z - success: protocol unpack registerred
-2019-03-05T12:23:50.022Z - success: protocol disable-commonjs registerred
-2019-03-05T12:23:50.194Z - normal: connected!
-2019-03-05T12:23:50.198Z - normal: Check project /Users/tuyoo/Documents/weChatGame/OceanProject
-2019-03-05T12:23:50.202Z - normal: Initializing project /Users/tuyoo/Documents/weChatGame/OceanProject
-2019-03-05T12:23:50.204Z - normal: Initializing Cocos2d
-2019-03-05T12:23:51.714Z - normal: Initializing Asset Database
-2019-03-05T12:23:51.757Z - success: protocol uuid registerred
-2019-03-05T12:23:51.757Z - success: protocol db registerred
-2019-03-05T12:23:51.757Z - success: protocol thumbnail registerred
-2019-03-05T12:23:51.758Z - normal: Loading editor/builtin packages
-2019-03-05T12:23:51.961Z - success: assets loaded
-2019-03-05T12:23:51.967Z - success: builder loaded
-2019-03-05T12:23:51.971Z - success: cocos-analytics loaded
-2019-03-05T12:23:51.978Z - success: console loaded
-2019-03-05T12:23:52.024Z - success: fb-instant-games loaded
-2019-03-05T12:23:52.038Z - success: google-instant-games loaded
-2019-03-05T12:23:52.046Z - success: hierarchy loaded
-2019-03-05T12:23:52.052Z - success: inspector loaded
-2019-03-05T12:23:52.054Z - success: keystore loaded
-2019-03-05T12:23:52.061Z - success: node-library loaded
-2019-03-05T12:23:52.063Z - success: package-asset loaded
-2019-03-05T12:23:52.065Z - success: preferences loaded
-2019-03-05T12:23:52.070Z - success: project-exporter loaded
-2019-03-05T12:23:52.099Z - success: project-importer loaded
-2019-03-05T12:23:52.105Z - success: project-settings loaded
-2019-03-05T12:23:52.161Z - success: ui-kit loaded
-2019-03-05T12:23:52.168Z - success: scene loaded
-2019-03-05T12:23:52.170Z - success: sprite-editor loaded
-2019-03-05T12:23:52.176Z - success: store loaded
-2019-03-05T12:23:52.184Z - success: timeline loaded
-2019-03-05T12:23:52.184Z - normal: Loading builtin packages
-2019-03-05T12:23:52.198Z - success: asset-db-debugger loaded
-2019-03-05T12:23:52.199Z - success: color-picker loaded
-2019-03-05T12:23:52.318Z - success: google-play-instant loaded
-2019-03-05T12:23:52.326Z - success: jsb-adapter loaded
-2019-03-05T12:23:52.346Z - success: package-manager loaded
-2019-03-05T12:23:52.590Z - success: qqplay-adapter loaded
-2019-03-05T12:23:52.608Z - success: sdkbox loaded
-2019-03-05T12:23:52.614Z - success: tester loaded
-2019-03-05T12:23:52.622Z - success: ui-grid loaded
-2019-03-05T12:23:52.627Z - success: ui-kit-preview-extra loaded
-2019-03-05T12:23:52.632Z - success: ui-kit-preview loaded
-2019-03-05T12:23:52.637Z - success: ui-tree loaded
-2019-03-05T12:23:52.647Z - success: weapp-adapter loaded
-2019-03-05T12:23:54.129Z - normal: Loading packages
-2019-03-05T12:23:54.159Z - normal: Watching packages
-2019-03-05T12:23:54.289Z - normal: Run Application
-2019-03-05T12:23:56.001Z - warn: [db-task][init] Backup unused meta file: db://assets/resources/test.meta
-2019-03-05T12:23:58.051Z - success: preview server running at http://localhost:7457
+2019-03-05T13:12:03.312Z - normal: Load ~/.CocosCreator/settings.json
+2019-03-05T13:12:03.316Z - normal: checking language setting...
+2019-03-05T13:12:03.317Z - normal: Language: zh
+2019-03-05T13:12:04.327Z - success: protocol editor-framework registered
+2019-03-05T13:12:04.327Z - success: protocol app registered
+2019-03-05T13:12:04.328Z - success: protocol theme registered
+2019-03-05T13:12:04.328Z - success: protocol packages registered
+2019-03-05T13:12:04.328Z - success: protocol unpack registerred
+2019-03-05T13:12:04.328Z - success: protocol disable-commonjs registerred
+2019-03-05T13:12:04.517Z - normal: connected!
+2019-03-05T13:12:04.522Z - normal: Check project /Users/tuyoo/Documents/weChatGame/OceanProject
+2019-03-05T13:12:04.527Z - normal: Initializing project /Users/tuyoo/Documents/weChatGame/OceanProject
+2019-03-05T13:12:04.545Z - normal: Initializing Cocos2d
+2019-03-05T13:12:05.952Z - normal: Initializing Asset Database
+2019-03-05T13:12:05.998Z - success: protocol uuid registerred
+2019-03-05T13:12:05.999Z - success: protocol db registerred
+2019-03-05T13:12:05.999Z - success: protocol thumbnail registerred
+2019-03-05T13:12:05.999Z - normal: Loading editor/builtin packages
+2019-03-05T13:12:06.195Z - success: assets loaded
+2019-03-05T13:12:06.200Z - success: builder loaded
+2019-03-05T13:12:06.204Z - success: cocos-analytics loaded
+2019-03-05T13:12:06.211Z - success: console loaded
+2019-03-05T13:12:06.261Z - success: fb-instant-games loaded
+2019-03-05T13:12:06.270Z - success: google-instant-games loaded
+2019-03-05T13:12:06.279Z - success: hierarchy loaded
+2019-03-05T13:12:06.291Z - success: inspector loaded
+2019-03-05T13:12:06.293Z - success: keystore loaded
+2019-03-05T13:12:06.300Z - success: node-library loaded
+2019-03-05T13:12:06.303Z - success: package-asset loaded
+2019-03-05T13:12:06.305Z - success: preferences loaded
+2019-03-05T13:12:06.309Z - success: project-exporter loaded
+2019-03-05T13:12:06.333Z - success: project-importer loaded
+2019-03-05T13:12:06.338Z - success: project-settings loaded
+2019-03-05T13:12:06.362Z - success: ui-kit loaded
+2019-03-05T13:12:06.369Z - success: scene loaded
+2019-03-05T13:12:06.371Z - success: sprite-editor loaded
+2019-03-05T13:12:06.378Z - success: store loaded
+2019-03-05T13:12:06.385Z - success: timeline loaded
+2019-03-05T13:12:06.385Z - normal: Loading builtin packages
+2019-03-05T13:12:06.397Z - success: asset-db-debugger loaded
+2019-03-05T13:12:06.398Z - success: color-picker loaded
+2019-03-05T13:12:06.545Z - success: google-play-instant loaded
+2019-03-05T13:12:06.547Z - success: jsb-adapter loaded
+2019-03-05T13:12:06.556Z - success: package-manager loaded
+2019-03-05T13:12:06.800Z - success: qqplay-adapter loaded
+2019-03-05T13:12:06.818Z - success: sdkbox loaded
+2019-03-05T13:12:06.824Z - success: tester loaded
+2019-03-05T13:12:06.832Z - success: ui-grid loaded
+2019-03-05T13:12:06.837Z - success: ui-kit-preview-extra loaded
+2019-03-05T13:12:06.842Z - success: ui-kit-preview loaded
+2019-03-05T13:12:06.847Z - success: ui-tree loaded
+2019-03-05T13:12:06.857Z - success: weapp-adapter loaded
+2019-03-05T13:12:08.777Z - normal: Loading packages
+2019-03-05T13:12:08.833Z - normal: Watching packages
+2019-03-05T13:12:09.002Z - normal: Run Application
+2019-03-05T13:12:11.992Z - success: preview server running at http://localhost:7457
+2019-03-05T13:12:50.984Z - warn: Error: ipc timeout. message: scene:query-node, session: scene@renderer:1130
+2019-03-05T13:12:50.986Z - warn: Error: ipc timeout. message: scene:query-node, session: scene@renderer:1132
+2019-03-05T13:12:50.996Z - warn: Error: ipc timeout. message: scene:query-node, session: scene@renderer:1133

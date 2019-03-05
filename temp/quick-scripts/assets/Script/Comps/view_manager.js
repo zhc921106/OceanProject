@@ -54,10 +54,10 @@ var vm = {
         cc.warn('VM loadRes', assetUrl);
         cc.loader.loadRes(assetUrl, cc.Prefab, function (completedCount, totalCount) {
             // TODO 加载进度更新
-
+            GM.EventCenter.trigger(GM.EventType.GM_UI_LOADING_START, { progress: completedCount / totalCount });
         }, function (err, prefab) {
             // TODO 加载更新完成
-
+            GM.EventCenter.trigger(GM.EventType.GM_UI_LOADING_END);
             if (err) {
                 // TODO 发生错误
                 return;
