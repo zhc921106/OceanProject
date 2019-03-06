@@ -14,6 +14,18 @@ cc.Class({
     onLoad () {
         cfg.GM_DEBUG && this.log('onLoad');
     },
+    onEnable (){
+        cfg.GM_DEBUG && this.log('onEnable');
+    },
+    init(params){
+        cfg.GM_DEBUG && this.log('init',params);    
+    },
+    onDisable(){
+        cfg.GM_DEBUG && this.log('onDisable');
+    },
+    onDestroy (){
+        cfg.GM_DEBUG && this.log('onDestroy');    
+    },
     // _regEvts(){},
     // _close(){},
     // start () {},

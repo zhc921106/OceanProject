@@ -59,6 +59,8 @@ GM.EventType = {
 	// 内部事件
 	GM_UI_LOADING_START: 'gm_ui_loading_start', // UI加载等待开始
 	GM_UI_LOADING_END: 'gm_ui_loading_end',     //       ...结束
+	GM_UI_SCENE_BG_REPALCE: 'gm_ui_scene_bg_replace',   // 不同view的背景替换事件
+	GM_UI_REPLACE_FULL_VIEW: 'gm_ui_replace_full_view', // 全屏view 切换
 
 	// tcp事件
 	TCP_ERROR: 'tcp_error',

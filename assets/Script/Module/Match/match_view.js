@@ -1,7 +1,7 @@
 /*================================================================
- * FileName hall_view
- * Description 主界面
- * Created on 04/03/19 by ocean
+ * FileName match_view
+ * Description 比赛view
+ * Created on 06/03/19 by ocean
  * Copyright (c) 2019 OCEAN
 ================================================================*/
 const cfg = GM.cfg;
@@ -31,8 +31,8 @@ cc.Class({
         let params = {vKey:'Shop_View',data:{'shop':1}};
         GM.EventCenter.trigger(GM.EventType.GM_UI_REPLACE_FULL_VIEW,params);
     },
-    onClickMatch(){
-        let params = {vKey:'Match_View',data:{'match':1}};
+    onClickHall(){
+        let params = {vKey:'Hall_View',data:{'hall':1}};
         GM.EventCenter.trigger(GM.EventType.GM_UI_REPLACE_FULL_VIEW,params);
     },
     // _regEvts(){},
@@ -42,5 +42,4 @@ cc.Class({
     // onDestroy (){},
     // onDisable(){},
     // update (dt) {},
-
 });

@@ -10,10 +10,20 @@ let CustomComponent = cc.Class({
 
     },
     log(){
-    	cc.log(this.name,cc.js.formatStr.apply(null, arguments));
+        let arr = [this.name];
+        for(let i = 0, len = arguments.length; i < len; i++){
+            arr.push(arguments[i]);
+        }
+        cc.log.apply(null,arr);
+        // cc.log(this.name,cc.js.formatStr.apply(null, arguments));
     },
     err(){
-    	cc.error(this.name,cc.js.formatStr.apply(null, arguments));
+        let arr = [this.name];
+        for(let i = 0, len = arguments.length; i < len; i++){
+            arr.push(arguments[i]);
+        }
+        cc.error.apply(null,arr);
+    	// cc.error(this.name,cc.js.formatStr.apply(null, arguments));
     },
     // onLoad (){},
     /*
