@@ -1,1 +1,0 @@
-{"version":3,"sources":["gm_config.js"],"names":["cfg","GM"],"mappings":";;;;;;AAAA;;;AAGA,IAAIA,MAAM;AACN,cAAS,CADH;AAEN,gBAAW;AAFL,CAAV;AAIAC,GAAGD,GAAH,GAASA,GAAT","file":"gm_config.js","sourceRoot":"../../../../../assets/Script/Comps","sourcesContent":["/*\n* 开关\n*/\nlet cfg = {\n    \"GM_DEV\":1,\n    \"GM_DEBUG\":1,\n};\nGM.cfg = cfg;"]}
