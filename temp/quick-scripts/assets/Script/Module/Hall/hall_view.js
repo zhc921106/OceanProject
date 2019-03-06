@@ -16,10 +16,29 @@ cc.Class({
     extends: require("CustomComponent"),
     properties: {},
     onLoad: function onLoad() {
-        cfg.GM_DEBUG && this.log('onLoad', 'woca');
+        cfg.GM_DEBUG && this.log('onLoad');
+    },
+    onEnable: function onEnable() {
+        cfg.GM_DEBUG && this.log('onEnable');
+    },
+    init: function init(params) {
+        cfg.GM_DEBUG && this.log('init', params);
+    },
+    onDisable: function onDisable() {
+        cfg.GM_DEBUG && this.log('onDisable');
+    },
+    onDestroy: function onDestroy() {
+        cfg.GM_DEBUG && this.log('onDestroy');
+    },
+    onClickShop: function onClickShop() {
+        var params = { vKey: 'Shop_View', data: { 'shop': 1 } };
+        GM.EventCenter.trigger(GM.EventType.GM_UI_REPLACE_FULL_VIEW, params);
+    },
+    onClickMatch: function onClickMatch() {
+        var params = { vKey: 'Match_View', data: { 'match': 1 } };
+        GM.EventCenter.trigger(GM.EventType.GM_UI_REPLACE_FULL_VIEW, params);
     }
 }
-
 // _regEvts(){},
 // _close(){},
 // start () {},
@@ -27,6 +46,7 @@ cc.Class({
 // onDestroy (){},
 // onDisable(){},
 // update (dt) {},
+
 );
 
 cc._RF.pop();

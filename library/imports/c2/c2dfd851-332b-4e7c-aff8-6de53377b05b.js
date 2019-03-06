@@ -31,6 +31,9 @@ cc.Class({
     _onLoadEnd: function _onLoadEnd() {
         this.setBlockInput(false);
     },
+
+
+    // 最上层屏蔽触摸
     _initMask: function _initMask() {
         this._blockComp = this.node.getComponent(cc.BlockInputEvents);
     },
@@ -38,6 +41,7 @@ cc.Class({
         this._blockComp.enabled = isBlock;
     }
 }
+
 // _close(){},
 // start () {},
 // onEnable (){},

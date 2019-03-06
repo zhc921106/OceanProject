@@ -16,10 +16,20 @@ var CustomComponent = cc.Class({
 
     },
     log: function log() {
-        cc.log(this.name, cc.js.formatStr.apply(null, arguments));
+        var arr = [this.name];
+        for (var i = 0, len = arguments.length; i < len; i++) {
+            arr.push(arguments[i]);
+        }
+        cc.log.apply(null, arr);
+        // cc.log(this.name,cc.js.formatStr.apply(null, arguments));
     },
     err: function err() {
-        cc.error(this.name, cc.js.formatStr.apply(null, arguments));
+        var arr = [this.name];
+        for (var i = 0, len = arguments.length; i < len; i++) {
+            arr.push(arguments[i]);
+        }
+        cc.error.apply(null, arr);
+        // cc.error(this.name,cc.js.formatStr.apply(null, arguments));
     },
 
     // onLoad (){},

@@ -23,6 +23,8 @@ var vm = {
     *	assetUrl: 预制体路径,
     *	params: 所需参数,
     *	parent: 当前Node父节点
+    *   openPrefab(assetUrl,params,parentReal,callback) 打开预制体
+    *   openQueuePrefab(assetUrl,params,parentReal,callback) 内部带等待队列 弹窗叠加
     */
     openPrefab: function openPrefab(assetUrl, params, parentReal, callback) {
         var _this = this;
@@ -60,6 +62,7 @@ var vm = {
             GM.EventCenter.trigger(GM.EventType.GM_UI_LOADING_END);
             if (err) {
                 // TODO 发生错误
+                cc.warn('VM loadRes err', err);
                 return;
             }
             node = _this._addPrefab(prefab, params, parent, assetUrl);

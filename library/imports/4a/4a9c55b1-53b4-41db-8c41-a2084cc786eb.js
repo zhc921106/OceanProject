@@ -2,7 +2,7 @@
 cc._RF.push(module, '4a9c5WxU7RB24xBoghMx4br', 'comp_template');
 // Script/Comps/comp_template.js
 
-"use strict";
+'use strict';
 
 /*================================================================
  * FileName comp_template
@@ -17,6 +17,18 @@ cc.Class({
     properties: {},
     onLoad: function onLoad() {
         cfg.GM_DEBUG && this.log('onLoad');
+    },
+    onEnable: function onEnable() {
+        cfg.GM_DEBUG && this.log('onEnable');
+    },
+    init: function init(params) {
+        cfg.GM_DEBUG && this.log('init', params);
+    },
+    onDisable: function onDisable() {
+        cfg.GM_DEBUG && this.log('onDisable');
+    },
+    onDestroy: function onDestroy() {
+        cfg.GM_DEBUG && this.log('onDestroy');
     }
 }
 // _regEvts(){},
