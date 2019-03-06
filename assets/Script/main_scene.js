@@ -40,6 +40,8 @@ cc.Class({
             let params = {vKey:'Shop_View',data:{'shop':1}};
             GM.EventCenter.trigger(GM.EventType.GM_UI_REPLACE_FULL_VIEW,params);
         }else if(custom == 2){
+            // 1. 网络请求(快_派发出去) 2. 打开页面(快_成功后取下数据)
+
         }else if(custom == 3){    
         }else if(custom == 4){
             vm.openPrefab('Prefabs/Pop/Hall_Pop_Confirm',{'hi':1});
@@ -52,6 +54,13 @@ cc.Class({
     _regEvts(){
         GM.EventCenter.listen(GM.EventType.GM_UI_REPLACE_FULL_VIEW, this.onPopView, this);
     },
+
+    /*
+    *    1. 网络请求 ok 打开页面
+    *    2. 打开页面 ok 网络请求
+    *    3. 网络请求 && 打开页面  ok
+    *    4. 引入model的使用
+    */
 
 
     /*

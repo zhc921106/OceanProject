@@ -18,14 +18,13 @@ cc.Class({
         cfg.GM_DEBUG && this.log('onEnable');
     },
     init(params){
-        cfg.GM_DEBUG && this.log('init');  
-        cc.log('init',params);
+        cfg.GM_DEBUG && this.log('init',params);
     },
     onDisable(){
         cfg.GM_DEBUG && this.log('onDisable');
     },
     onDestroy (){
-        cfg.GM_DEBUG && this.log('onDestroy');    
+        cfg.GM_DEBUG && this.log('onDestroy');  
     },
 
     onClickMatch(){

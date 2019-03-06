@@ -67,6 +67,7 @@ GM.EventType = {
     TCP_CLOSE: 'tcp_close',
     TCP_OPENED: 'tcp_opened', // 连接建立好之后的回调
     TCP_RECONNECT: 'tcp_reconnect',
+    TCP_RECEIVE: 'tcp_receive',
 	// 页面消息事件
 	// 平台事件
 };
