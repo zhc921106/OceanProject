@@ -65,7 +65,7 @@ let MsgFactory = cc.Class({
         }
     },
     _regListener(msg, handler, scope, once){
-        GM.EventCenter.listen(msg, this.onResponse, this);        
+        GM.Notify.listen(msg, this.onResponse, this);        
     },
 
     /*
@@ -192,6 +192,7 @@ let MsgFactory = cc.Class({
         if (!model) {
             var BaseModel = require('base_model');
             model         = new BaseModel();
+            model.name    = modelName;
             this._addModel(model);
         }
         return model;
@@ -200,62 +201,68 @@ let MsgFactory = cc.Class({
     /*
     *    获取缓存的model协议
     */
-    getModel(){
-
+    getModel(modelName){
+        return this._modelMap[modelName];
     },
 
     /*
     *    缓存model对象
     */
-    _addModel(){
-
+    _addModel(model){
+        let newModel = model;
+        if (typeof model == 'string') {
+            var ModelClass = require(model);
+            newModel       = new ModelClass();
+            // TODO 这里的名字有点问题
+            newModel.name  = model;
+        }
+        this._modelMap[newModel.name] = newModel;
     },
 
-    hasModel(){
-
+    hasModel(modelName){
+        return this._modelMap[modelName] != null;
     },
 
-    removeModel(){
-
+    removeModel(modelName,isClean){
+        this._modelMap[modelName] = null;
+        // var model = this._modelMap[modelName];
+        // model.destroy();
     },
 
     /*
     *    清理缓存数据
     */
     cleanMsg(){
-
+        this._sequence = [];
     },
 
     /*
     *    暂停发送服务器通知
     */
-    lock(){
-
+    lock(time){
+        if (!this._useSequence) {
+            return;
+        }
+        if (this._isLock) {
+            return;
+        }
+        this._isLock = true;
+        this._delay  = time || 0;
     },
 
     /*
     *    开始发送服务器消息
     */
     unlock(){
-
+        this._isLock = false;
+        this._delay  = 0;
     },
 
     destroy(){
-
+        this._sequence  = [];
+        this._msgCaches = [];
+        this._modelMap  = {};
     },
 
 });
 module.exports = MsgFactory;
-
-
-cc.Class({
-    extends: cc.Component,
-
-    properties: {
-
-    },
-    // LIFE-CYCLE CALLBACKS:
-    // onLoad () {},
-    // start () {},
-    // update (dt) {},
-});

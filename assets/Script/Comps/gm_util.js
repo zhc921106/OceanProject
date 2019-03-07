@@ -1,4 +1,4 @@
-GM.EventCenter = {
+GM.Notify = {
 
     events : {},
 
@@ -42,7 +42,7 @@ GM.EventCenter = {
     trigger : function(eventName, params){
         let fns = this.events[eventName];
         if(!fns){
-            cc.error('GM EventCenter no Listen:',eventName);
+            cc.error('GM Notify no Listen:',eventName);
             return;
         }
         let fn;
@@ -55,7 +55,7 @@ GM.EventCenter = {
     },
     dumpAllEvts(){},
 };
-GM.EventType = {
+GM.Event = {
 	// 内部事件
 	GM_UI_LOADING_START: 'gm_ui_loading_start', // UI加载等待开始
 	GM_UI_LOADING_END: 'gm_ui_loading_end',     //       ...结束
@@ -68,6 +68,8 @@ GM.EventType = {
     TCP_OPENED: 'tcp_opened', // 连接建立好之后的回调
     TCP_RECONNECT: 'tcp_reconnect',
     TCP_RECEIVE: 'tcp_receive',
+    TCP_HEART_BEAT:'tcp_heart_beat',
+
 	// 页面消息事件
 	// 平台事件
 };
@@ -84,12 +86,144 @@ let util = {
     	if(prefab){callback(prefab);return;}
     	cc.loader.loadRes(assetUrl,cc.Prefab,(completedCount, totalCount)=>{
     		// TODO 加载进度更新
-    		GM.EventCenter.trigger(GM.EventType.GM_UI_LOADING_START,{progress:(completedCount / totalCount)});
+    		GM.Notify.trigger(GM.Event.GM_UI_LOADING_START,{progress:(completedCount / totalCount)});
     	},(err,prefab)=>{
-    		GM.EventCenter.trigger(GM.EventType.GM_UI_LOADING_END);
+    		GM.Notify.trigger(GM.Event.GM_UI_LOADING_END);
     		if(err){ cc.error('util loadRes error:',err); return;}
     		callback(prefab);
     	});
+    },
+
+    
+    /*
+    *	加密解密相关
+    */
+    decodeMessage (data) {
+        if (typeof ArrayBuffer != 'undefined' && data instanceof ArrayBuffer) {
+            var databytes = new Uint8Array(data);
+            var content = '';
+            for (var i = 0, len = databytes.length; i < len; i++) {
+                var tmpc = String.fromCharCode(databytes[i]);
+                content += tmpc;
+            }
+            return content;
+        }
+        var data = this.base64Decode(data);
+        var mask = data.slice(0, 4);
+        data = data.slice(4);
+        for (var i = 0, len = data.length; i < len; i++) {
+            var charcode = data[i];
+            charcode ^= mask[i % 4];
+            data[i] = charcode;
+        }
+        var result = this.utf8Decode(data);
+        return result;
+    },
+    base64Encode: function(input) {
+        var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        var output = "";
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        var i = 0;
+
+        input = tywx.EncodeDecode.utf8Encode(input);
+        var len = input.length;
+        while (i < len) {
+
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+
+            output = output +
+                _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
+                _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
+
+        }
+
+        return output;
+    },
+    base64Decode: function(input) {
+        var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        var i = 0;
+
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        var len = input.length;
+        var output = [];
+        while (i < len) {
+
+            enc1 = _keyStr.indexOf(input.charAt(i++));
+            enc2 = _keyStr.indexOf(input.charAt(i++));
+            enc3 = _keyStr.indexOf(input.charAt(i++));
+            enc4 = _keyStr.indexOf(input.charAt(i++));
+
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+
+            output.push(chr1);
+
+            if (enc3 != 64) {
+                output.push(chr2);
+            }
+            if (enc4 != 64) {
+                output.push(chr3);
+            }
+        }
+        return output;
+    },
+    utf8Encode: function(string) {
+        string = string.replace(/\r\n/g, "\n");
+        var utftext = "";
+        for (var n = 0, len = string.length; n < len; n++) {
+            var c = string.charCodeAt(n);
+            if (c < 128) {
+                utftext += String.fromCharCode(c);
+            } else if ((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            } else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+        }
+
+        return utftext;
+    },
+    utf8Decode: function(input) {
+        var string = "";
+        var i = 0, c1, c2;
+        var c = c1 = c2 = 0;
+        var len = input.length;
+        while (i < len) {
+            c = input[i];
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            } else if ((c > 191) && (c < 224)) {
+                c2 = input[i + 1];
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            } else {
+                c2 = input[i + 1];
+                c3 = input[i + 2];
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+        }
+        return string;
     },
 
 };

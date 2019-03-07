@@ -5,7 +5,7 @@ cc.Class({
     },
     onLoad () {
         GM.mf = new MsgFactory();
-        GM.EventCenter.listen(GM.EventType.TCP_RECEIVE, this._onReceive, this);
+        GM.Notify.listen(GM.Event.TCP_RECEIVE, this._onReceive, this);
     },
     _onReceive(params){
         GM.mf.onResponse(params);

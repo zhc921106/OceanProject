@@ -29,11 +29,11 @@ cc.Class({
 
     onClickShop(){
         let params = {vKey:'Shop_View',data:{'shop':1}};
-        GM.EventCenter.trigger(GM.EventType.GM_UI_REPLACE_FULL_VIEW,params);
+        GM.Notify.trigger(GM.Event.GM_UI_REPLACE_FULL_VIEW,params);
     },
     onClickMatch(){
         let params = {vKey:'Match_View',data:{'match':1}};
-        GM.EventCenter.trigger(GM.EventType.GM_UI_REPLACE_FULL_VIEW,params);
+        GM.Notify.trigger(GM.Event.GM_UI_REPLACE_FULL_VIEW,params);
     },
     // _regEvts(){},
     // _close(){},

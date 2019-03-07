@@ -18,8 +18,8 @@ cc.Class({
         // this.setBlockInput(false);
     },
     _regEvts(){
-        GM.EventCenter.listen(GM.EventType.GM_UI_LOADING_START, this._onLoadStart, this);
-        GM.EventCenter.listen(GM.EventType.GM_UI_LOADING_END, this._onLoadEnd, this);
+        GM.Notify.listen(GM.Event.GM_UI_LOADING_START, this._onLoadStart, this);
+        GM.Notify.listen(GM.Event.GM_UI_LOADING_END, this._onLoadEnd, this);
     },
     _onLoadStart(){
         this.setBlockInput(true);

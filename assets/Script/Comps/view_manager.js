@@ -46,10 +46,10 @@ let vm = {
         cc.warn('VM loadRes',assetUrl);
     	cc.loader.loadRes(assetUrl,cc.Prefab,(completedCount, totalCount)=>{
     		// TODO 加载进度更新
-            GM.EventCenter.trigger(GM.EventType.GM_UI_LOADING_START,{progress:(completedCount / totalCount)});
+            GM.Notify.trigger(GM.Event.GM_UI_LOADING_START,{progress:(completedCount / totalCount)});
     	},(err,prefab)=>{
     		// TODO 加载更新完成
-            GM.EventCenter.trigger(GM.EventType.GM_UI_LOADING_END);
+            GM.Notify.trigger(GM.Event.GM_UI_LOADING_END);
     		if(err){
     			// TODO 发生错误
                 cc.warn('VM loadRes err',err);

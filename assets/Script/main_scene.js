@@ -38,7 +38,7 @@ cc.Class({
         cfg.GM_DEBUG && this.log('onClickTest',custom);
         if(custom == 1){
             let params = {vKey:'Shop_View',data:{'shop':1}};
-            GM.EventCenter.trigger(GM.EventType.GM_UI_REPLACE_FULL_VIEW,params);
+            GM.Notify.trigger(GM.Event.GM_UI_REPLACE_FULL_VIEW,params);
         }else if(custom == 2){
             // 1. 网络请求(快_派发出去) 2. 打开页面(快_成功后取下数据)
 
@@ -52,7 +52,7 @@ cc.Class({
         }
     },
     _regEvts(){
-        GM.EventCenter.listen(GM.EventType.GM_UI_REPLACE_FULL_VIEW, this.onPopView, this);
+        GM.Notify.listen(GM.Event.GM_UI_REPLACE_FULL_VIEW, this.onPopView, this);
     },
 
     /*
