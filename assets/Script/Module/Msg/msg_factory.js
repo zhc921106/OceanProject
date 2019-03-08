@@ -6,6 +6,7 @@
 let MsgFactory = cc.Class({
     name: 'MsgFactory',
     ctor () {
+        this._gameid      = 111;
         this._msgkey      = 'GM';  // 当前消息中心标志
         this._modelMap    = {};    // 所有的model数据
         this._sequence    = [];    // 消息队列
@@ -31,6 +32,14 @@ let MsgFactory = cc.Class({
                 this._data = data.result || data;
             }
         },
+        gameId:{
+            get(){
+                return this._gameid;
+            },
+            set(gameid){
+                this._gameid = gameid;
+            },
+        }
     },
 
     /*
@@ -46,26 +55,26 @@ let MsgFactory = cc.Class({
     },
 
     /*
-    *    注册需要监听的协议
+    *    注册需要监听的协议 暂时不使用 {cmd:'',params:'',result:'',action:''(新增辅助)}
+    *    服务器过来的消息 直接 trigger cmd
+    *    MsgFactory 监听cmd
+    *    protocols = {} key: cmd+'_'+action value: {cmd:'',result:''}
+    *    唯一标志 cmd+action 
     */
     regProtocols(protocols){
-        let obs = [];
+        let obs = {};
         for (let k in protocols) {
-            let proto  = protocols[k];
-            let notice = proto.msg;
-            if (!notice) {
-                let action = proto.params ? proto.params.action : null;
-                action     = action ? '_' + action : '';
-                notice     = proto.cmd + action;
-            }
-            if (notice && obs.indexOf(notice) < 0) {
-                this._regListener(notice);
-                obs.push(notice);
+            let proto = protocols[k];
+            let cmd   = proto.cmd            
+            if (!obs['cmd']) {
+                this._regListener(cmd);
+                obs['cmd'] = 1;
             }
         }
+        this.protocols = protocols;
     },
-    _regListener(msg, handler, scope, once){
-        GM.Notify.listen(msg, this.onResponse, this);        
+    _regListener(cmd, handler, scope, once){
+        GM.Notify.listen(cmd, this.onResponse, this);
     },
 
     /*
@@ -73,18 +82,30 @@ let MsgFactory = cc.Class({
     */
     onResponse(response){
         cc.error('onResponse',response);
-        // 1. 是不是我要处理的消息(多个factory的时候） 过滤的直接trigger出去
-        // 2. 是不是我注册的协议
-        // 3. 检测消息中是否有 error
+        // 1. check gameid
+        // let isGame = response.result && response.result.gameId == this.gameId
+        // if(!isGame){return;}
+        // 2.check Protocols
+        let result = response.result,
+            cmd    = response.cmd,
+            action = result.action,
+            error  = response.error;
+        let protoKey = cmd + (action ? '_' + action : '');    
+        // let protocol = this.protocols[protoKey];
+        // if(!protocol){return;}
+        // 3.check error
+        if(error){
+            cc.error('onResponse error');
+            return;
+        }
         if(this._useSequence){
             this._addToSequence(response);
             return;
         }
         // 4. 没有使用队列 直接trigger
-        let protoKey = 'key';
         let model = this._createModel(protoKey);
         model.parse(response);
-        // trigger
+        GM.Notify.trigger(protoKey,result); // protocol.notice 注意 trigger的key 可以配置不用写死。
     },
 
     /*
@@ -145,47 +166,22 @@ let MsgFactory = cc.Class({
             result   = response.result,
             action   = result.action;
         let protoKey = cmd + (action ? '_' + action : '');
-        // var protocol = this.APP.Protocols[protoKey];
+        // let protocol = this.APP.Protocols[protoKey];
         let model = this._createModel(protoKey);
         model.parse(response);
-        // trigger(protocol.notice, result);
+        GM.Notify.trigger(protoKey,result);
     },
 
     /*
     *    网络请求发送, 由消息中心处理 交由tcp处理
     */
-    requestMsg(protocol, params, handler, scope){
-        let cmd = this._createCmd(protocol, params);
-        if (typeof handler === 'function') {
-            this._regListener(protocol.notice, handler, scope, true);
+    requestMsg(cmd){
+        // 网络有问题 缓存发送的消息
+        if(GM.sdk.isConnectSdk()){
+            this._msgCaches.push(cmd);
+            return;
         }
-        if(cmd){
-            // 网络有问题 缓存发送的消息
-            if(GM.sdk.isConnectSdk()){
-                this._msgCaches.push(cmd);
-                return;
-            }
-            GM.sdk.sendSdk(cmd);
-        }
-    },
-
-    /*
-    *    创建一个标准的服务器数据格式
-    */
-    _createCmd(protocol, customParams){
-        let sendObj             = {};
-        sendObj.cmd             = protocol.cmd;
-        sendObj.clientId        = GM.SystemInfo.clientId;
-        sendObj.params          = JSON.parse(JSON.stringify(protocol.params)); //copy
-        sendObj.params.gameId   = 9999;
-        sendObj.params.userId   = GM.UserInfo.userId;
-        sendObj.params.clientId = GM.SystemInfo.clientId;
-
-        customParams = customParams || {};
-        for (var k in customParams) {
-            sendObj.params[k] = customParams[k];
-        }
-        return sendObj;
+        GM.sdk.sendSdk(cmd);
     },
 
     /*

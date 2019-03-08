@@ -4,28 +4,7 @@
  * Created on 04/03/19 by ocean
  * Copyright (c) 2019 OCEAN
 ================================================================*/
-/*
-*  GM: 全局
-*  GM.vm          视图管理
-*  GM.sm          声音管理
-*  GM.cfg         配置文件
-*  GM.StateInfo   一堆配置信息
-*  GM.SystemInfo  一堆配置信息
-*  GM.util        工具类
-*  GM.mf          消息队列分发
-*  GM.Notify      通知中心
-*  GM.Event       事件名称
-*  GM.Http        http请求
-*  GM.Tcp         普通tcp
-*  GM.TcpWx       微信tcp
-*  GM.Timer       定时器
-*  GM.sdk         登陆网路连接相关
-*  GM.mc          发消息中心
-*  
-*  
-*  
-*  
-*/
+
 // cfg.GM_DEBUG && cc.error(this.name);
 const cfg = GM.cfg;
 const util = GM.util;
@@ -157,16 +136,17 @@ cc.Class({
 
     },
     _onTcpClose(){
-
+        this.log('_onTcpClose');
     },
     _onTcpOpened(){
-
+        this.log('_onTcpOpened');
+        // GM.Req.reqBindUser();
     },
     _onTcpError(){
-
+        this.log('_onTcpError');
     },
     _onLogout(){
-
+        this.log('_onLogout');
     },
 
     // start () {},

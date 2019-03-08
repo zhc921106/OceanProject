@@ -19,7 +19,7 @@ let SystemInfo = {
 let UserInfo = {
 	userId:'111',
 	authorCode:'',
-	
+
 };
 GM.cfg = cfg;
 GM.StateInfo = StateInfo;
@@ -33,7 +33,6 @@ GM.UserInfo = UserInfo;
 *  GM.StateInfo   一堆配置信息
 *  GM.SystemInfo  一堆配置信息
 *  GM.util        工具类
-*  GM.mf          消息队列分发
 *  GM.Notify      通知中心
 *  GM.Event       事件名称
 *  GM.Http        http请求
@@ -41,7 +40,8 @@ GM.UserInfo = UserInfo;
 *  GM.TcpWx       微信tcp
 *  GM.Timer       定时器
 *  GM.sdk         登陆网路连接相关
-*  GM.mc          发消息中心
+*  GM.mf          消息队列分发
+*  GM.Req         发消息中心
 *  
 *  
 *  
