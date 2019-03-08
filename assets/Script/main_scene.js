@@ -6,8 +6,25 @@
 ================================================================*/
 /*
 *  GM: 全局
-*  GM.vm 视图管理
-*  GM.sm 声音管理
+*  GM.vm          视图管理
+*  GM.sm          声音管理
+*  GM.cfg         配置文件
+*  GM.StateInfo   一堆配置信息
+*  GM.SystemInfo  一堆配置信息
+*  GM.util        工具类
+*  GM.mf          消息队列分发
+*  GM.Notify      通知中心
+*  GM.Event       事件名称
+*  GM.Http        http请求
+*  GM.Tcp         普通tcp
+*  GM.TcpWx       微信tcp
+*  GM.Timer       定时器
+*  GM.sdk         登陆网路连接相关
+*  GM.mc          发消息中心
+*  
+*  
+*  
+*  
 */
 // cfg.GM_DEBUG && cc.error(this.name);
 const cfg = GM.cfg;
@@ -41,7 +58,7 @@ cc.Class({
             GM.Notify.trigger(GM.Event.GM_UI_REPLACE_FULL_VIEW,params);
         }else if(custom == 2){
             // 1. 网络请求(快_派发出去) 2. 打开页面(快_成功后取下数据)
-
+            GM.sdk.guestLogin(GM.util.getLocalUUID());
         }else if(custom == 3){    
         }else if(custom == 4){
             vm.openPrefab('Prefabs/Pop/Hall_Pop_Confirm',{'hi':1});
@@ -53,6 +70,15 @@ cc.Class({
     },
     _regEvts(){
         GM.Notify.listen(GM.Event.GM_UI_REPLACE_FULL_VIEW, this.onPopView, this);
+
+        GM.Notify.listen(GM.EventType.SDK_LOGIN_FAIL,this._onSDKLoginFail,this);
+        GM.Notify.listen(GM.Event.SDK_LOGIN_SUCCESS,this._onSDKLoginSuccess,this);
+        GM.Notify.listen(GM.Event.TCP_CLOSE,this._onTcpClose, this);
+        GM.Notify.listen(GM.Event.TCP_OPENED,this._onTcpOpened, this);  
+        GM.Notify.listen(GM.Event.TCP_ERROR,this._onTcpError,this);
+        GM.Notify.listen(GM.Event.TCP_LOGOUT,this._onLogout,this);
+        
+        GM.Notify.listen(GM.Event.UPDATE_UER_INFO_LOC, this._onUserInfo, this);
     },
 
     /*
@@ -118,6 +144,31 @@ cc.Class({
         node.zIndex = util.max_zindex;
         node.parent = scene;
     },
+    /*
+    *    网络服务
+    */
+    _onSDKLoginFail(){
+        this.log('_onSDKLoginFail');
+    },
+    _onSDKLoginSuccess(response){
+        this.log('_onSDKLoginSuccess',response);
+        // TODO check Tcp state
+        // TODO tcp open
+
+    },
+    _onTcpClose(){
+
+    },
+    _onTcpOpened(){
+
+    },
+    _onTcpError(){
+
+    },
+    _onLogout(){
+
+    },
+
     // start () {},
     // onEnable (){},
     // onDestroy (){},

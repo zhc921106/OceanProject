@@ -72,6 +72,7 @@ let MsgFactory = cc.Class({
     *    监听处理所有消息 && 带过滤条件
     */
     onResponse(response){
+        cc.error('onResponse',response);
         // 1. 是不是我要处理的消息(多个factory的时候） 过滤的直接trigger出去
         // 2. 是不是我注册的协议
         // 3. 检测消息中是否有 error
@@ -96,20 +97,6 @@ let MsgFactory = cc.Class({
                 var model = new ModelCtor();
                 this._addModel(model);
             }
-        }
-    },
-
-    /*
-    *    网络请求发送, 由消息中心处理 交由tcp处理
-    */
-    requestMsg(protocol, params, handler, scope){
-        let cmd = this._createCmd(protocol, params);
-        if (typeof handler === 'function') {
-            this._regListener(protocol.notice, handler, scope, true);
-        }
-        if(cmd){
-            // TODO check tcp status
-            // tcp_client send
         }
     },
 
@@ -165,14 +152,31 @@ let MsgFactory = cc.Class({
     },
 
     /*
+    *    网络请求发送, 由消息中心处理 交由tcp处理
+    */
+    requestMsg(protocol, params, handler, scope){
+        let cmd = this._createCmd(protocol, params);
+        if (typeof handler === 'function') {
+            this._regListener(protocol.notice, handler, scope, true);
+        }
+        if(cmd){
+            // 网络有问题 缓存发送的消息
+            if(GM.sdk.isConnectSdk()){
+                this._msgCaches.push(cmd);
+                return;
+            }
+            GM.sdk.sendSdk(cmd);
+        }
+    },
+
+    /*
     *    创建一个标准的服务器数据格式
     */
     _createCmd(protocol, customParams){
         let sendObj             = {};
         sendObj.cmd             = protocol.cmd;
-        sendObj.clientId = GM.SystemInfo.clientId;
+        sendObj.clientId        = GM.SystemInfo.clientId;
         sendObj.params          = JSON.parse(JSON.stringify(protocol.params)); //copy
-        sendObj.params.gameId   = this.APP.GAMEID;
         sendObj.params.gameId   = 9999;
         sendObj.params.userId   = GM.UserInfo.userId;
         sendObj.params.clientId = GM.SystemInfo.clientId;

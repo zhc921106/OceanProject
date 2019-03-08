@@ -24,7 +24,7 @@ let Timer = {
      */
     isScheduledTimer:function(obj, callback){
         return scheduler.isScheduled(callback, obj);
-    }
+    },
 };
 /*
 *    http tcp 服务
@@ -127,7 +127,7 @@ let TcpClient = {
         }
         this.ws.send(msgStr);
     },
-    close: function(){
+    close (){
         this.connectStatus = this.CONNECT_STATUS_CLOSING;
         if(!this.ws){
             return;
@@ -139,9 +139,156 @@ let TcpClient = {
         this.ws.onmessage = null;
         this.ws = null;
         this.stopCheckTimer();
+    },
+    isConnected (){
+        return this.connectStatus == this.CONNECT_STATUS_OK;
+    },
+};
+let TcpWxClient = {
+    CONNECT_STATUS_OK : 1,
+    CONNECT_STATUS_OPENING : 2,
+    CONNECT_STATUS_CLOSING : 3,
+    CONNECT_STATUS_FAIL : 0,
+    connectStatus : 0,
+    isTimerInited : false,
+    tickCount : 0,
+    filterCmds : {'heart_beat':1,'room_online_info':1,'led':1},
+    /**
+     * 该方法包含了心跳和tcp状态检查两项功能,结合connect中的逻辑,是一个无限重试的机制
+     */
+    timerSchedule () {
+        this.tickCount = (this.tickCount + 1) % 3;
+        if (this.tickCount == 2 && this.connectStatus == this.CONNECT_STATUS_OK) {
+            //每3秒发送心跳
+            //监听者进行具体的协议实现
+            GM.Notify.trigger(GM.Event.TCP_HEART_BEAT);
+        }
+        // 每1秒检查一下长连接，如果不通，则重连。
+        this.reconnet();
+    },
+    startCheckTimer () {
+        this.isTimerInited = true;
+        Timer.setTimer(cc.director, this.timerSchedule, 1);
+    },
+    stopCheckTimer () {
+        this.isTimerInited = false;
+        Timer.cancelTimer(cc.director, this.timerSchedule);
+    },
+
+    //以下为websocket连接相关方法
+    connect (url){
+        if (this.connectStatus == this.CONNECT_STATUS_OPENING
+            || this.connectStatus == this.CONNECT_STATUS_OK) {
+            return;
+        }
+        this.connectStatus = this.CONNECT_STATUS_OPENING;
+        this.doWechatConnect(url);
+    },
+    doWechatConnect: function(url) {
+        wx.connectSocket({
+            url: url
+        });
+        wx.onSocketOpen(function(res) {
+            this.connectStatus = this.CONNECT_STATUS_OK;
+            GM.Notify.trigger(GM.Event.TCP_OPENED);
+            if (!this.isTimerInited) {
+                //启动TCP的定时检查机制,成功连接1次后将永久进行检查
+                this.startCheckTimer();
+            }
+        });
+        wx.onSocketError(function(res) {
+            this.connectStatus = this.CONNECT_STATUS_FAIL;
+            GM.Notify.trigger(GM.Event.TCP_ERROR);
+        });
+        wx.onSocketClose(function(res) {
+            this.connectStatus = this.CONNECT_STATUS_FAIL;
+            GM.Notify.trigger(GM.Event.TCP_CLOSE);
+        });
+        wx.onSocketMessage(function(res) {
+            if (!GM.StateInfo.isOnForeground){//在后台不处理消息
+                return;
+            }
+            // 处理长连接的消息
+            var content = GM.util.decodeMessage(res["data"]);
+            if (content == null || content == '0000') {
+                return;
+            }
+
+            var msgStr = unescape(content.replace(/\\u/gi,'%u'));
+            var strJson = content.substr(0, content.length - 0);
+            if (strJson != null && strJson.length > 0) {
+                var _json = JSON.parse(strJson);
+                if(!this.filterCmds[_json.cmd]){
+                    cc.log('TcpWxClient Receive:',msgStr);
+                }
+                GM.Notify.trigger(GM.Event.TCP_RECEIVE, _json);
+            }
+        });
+    },
+    decodeMessage: function(data) {
+        if (typeof ArrayBuffer != 'undefined' && data instanceof ArrayBuffer) {
+            var databytes = new Uint8Array(data);
+            var content = ''
+            for (var i = 0, len = databytes.length; i < len; i++) {
+                var tmpc = String.fromCharCode(databytes[i]);
+                content += tmpc;
+            }
+            return content;
+        }
+        var data = GM.util.base64Decode(data);
+        var mask = data.slice(0, 4);
+        data = data.slice(4);
+        for (var i = 0, len = data.length; i < len; i++) {
+            var charcode = data[i];
+            charcode ^= mask[i % 4];
+            data[i] = charcode;
+        }
+        var result = GM.util.utf8Decode(data);
+        return result;
+    },
+
+    reconnet:function () {
+        if (!GM.StateInfo.isOnForeground){
+            //在后台不重连(IOS会出问题)
+            return;
+        }
+        if (this.connectStatus == this.CONNECT_STATUS_FAIL) {
+            GM.Notify.trigger(GM.Event.TCP_RECONNECT);
+            this.connect(GM.SystemInfo.webSocketUrl);
+        }
+    },
+
+    sendMsg: function(data) {
+        if (this.connectStatus != this.CONNECT_STATUS_OK) {
+            return;
+        }
+
+        var msgStr = JSON.stringify(data);
+        if(!this.filterCmds[data.cmd]){
+            cc.log('TcpWxClient Send:',msgStr);
+        }
+        wx.sendSocketMessage({
+            data:msgStr,
+            success: function(params){
+            },
+            fail: function(params) {
+                var errMsg = params[0];
+                if (errMsg && errMsg['errMsg'] === 'sendSocketMessage:fail taskID not exist'){
+                    wx.closeSocket();
+                    this.connectStatus = this.CONNECT_STATUS_FAIL;
+                }
+                cc.error('sendSocketMessage fail')
+            },
+            complete: function(params) {
+            }
+        });
+    },
+    close: function(){
+        this.connectStatus = this.CONNECT_STATUS_CLOSING;
+        wx.closeSocket();
+        this.stopCheckTimer();
     }
 };
-
 let HttpClient = {
     /*
     *    wechat mini game http
@@ -274,3 +421,7 @@ let HttpClient = {
         }
     }
 };
+GM.Http = HttpClient;
+GM.Tcp = TcpClient;
+GM.TcpWx = TcpWxClient;
+GM.Timer = Timer;
