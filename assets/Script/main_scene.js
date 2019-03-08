@@ -50,7 +50,7 @@ cc.Class({
     _regEvts(){
         GM.Notify.listen(GM.Event.GM_UI_REPLACE_FULL_VIEW, this.onPopView, this);
 
-        GM.Notify.listen(GM.EventType.SDK_LOGIN_FAIL,this._onSDKLoginFail,this);
+        GM.Notify.listen(GM.Event.SDK_LOGIN_FAIL,this._onSDKLoginFail,this);
         GM.Notify.listen(GM.Event.SDK_LOGIN_SUCCESS,this._onSDKLoginSuccess,this);
         GM.Notify.listen(GM.Event.TCP_CLOSE,this._onTcpClose, this);
         GM.Notify.listen(GM.Event.TCP_OPENED,this._onTcpOpened, this);  

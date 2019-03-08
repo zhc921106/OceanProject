@@ -18,7 +18,7 @@ cc.Class({
         GM.mf.onResponse(params);
     },
     update (dt) {
-        GM.mf.onUpdate(dt);    
+        GM.mf.onUpdate(dt);
     },
     onDestroy(){
 

@@ -18,6 +18,7 @@ let SdkHelper = {
                     return;
                 }
                 let result = checkData.result;
+                let ip = result.tcpsrv.ip;
                 let port = result.tcpsrv.wsport || result.tcpsrv.port;
                 let webSocketUrl;
                 if (GM.SystemInfo.loginUrl.indexOf("https://") > -1 || ip.indexOf("wss") > -1){
@@ -30,6 +31,7 @@ let SdkHelper = {
 
             },
             onFail(params){
+                cc.error('0-0-000-');
                 GM.Notify.trigger(GM.Event.SDK_LOGIN_FAIL,params);
             },
         });
