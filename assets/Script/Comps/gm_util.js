@@ -75,9 +75,12 @@ GM.Event = {
     SDK_LOGIN_FAIL:'sdk_login_fail',
 
     CMD_USER_INFO:'user_info',
-    CMD_USER:'user',
-    CMD_HEART_BEAT: 'heart_beat',
-
+    CMD_MODULE_TIP:'module_tip_update',
+    CMD_UPDATE_NOTIFY:'update_notify',
+    CMD_GAME_DATA:'game_data',
+    CMD_TODO_TASKS:'todo_tasks',
+    CMD_ROOM_ONLINT_INFO:'room_online_info',
+    CMD_UPDATE_NOTIFY5:'update_notify5',
 	// 页面消息事件
 	// 平台事件
 };
