@@ -20,10 +20,11 @@ cc.Class({
             // 1. 网络请求(快_派发出去) 2. 打开页面(快_成功后取下数据)
             GM.sdk.guestLogin(GM.util.getLocalUUID());
         }else if(custom == 3){  
-            // GM.Timer.setTimer(this._onLogout.bind(this), 1);  
-            // GM.Timer.setTimer(()=>{
-            //     this._onLogout();
-            // }, 1);
+            GM.mf.dumpModelMap();
+            let model = GM.mf.getModel('user_info');
+            this.log(model.name,model.cmd);
+            model = GM.mf.getModel('room_online_info');
+            this.log(model.name,model.cmd);
         }else if(custom == 4){
             vm.openPrefab('Prefabs/Pop/Hall_Pop_Confirm',{'hi':1});
             vm.openQueuePrefab('Prefabs/Pop/Hall_Pop_Turn',{'hi':1});

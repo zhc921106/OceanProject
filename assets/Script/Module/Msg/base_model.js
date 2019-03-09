@@ -1,12 +1,10 @@
 let BaseModel = cc.Class({
     name: 'BaseModel',
-    ctor () {//cmd,data 
+    ctor () {
         this._cmd = '';
         this._data = '';
-        this._name = ''; // name 应该是这个消息结构的唯一标识
+        this._name = 'base_model'; // name 应该是这个消息结构的唯一标识
         this._action = '';
-        // this._cmd = cmd;
-        // this._data = data.result || data;
     },
     properties: {
         name:{

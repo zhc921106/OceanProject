@@ -126,18 +126,7 @@ let MsgFactory = cc.Class({
         GM.Notify.trigger(protoKey,result); // protocol.notice 注意 trigger的key 可以配置不用写死。
     },
 
-    /*
-    *    注册自定义model
-    */
-    regModels(models){
-        for (let key in models) {
-            let ModelCtor = models[key];
-            if (typeof ModelCtor == 'function') {
-                var model = new ModelCtor();
-                this._addModel(model);
-            }
-        }
-    },
+
 
     /*
     *    断网时的缓存消息
@@ -192,18 +181,6 @@ let MsgFactory = cc.Class({
     },
 
     /*
-    *    网络请求发送, 由消息中心处理 交由tcp处理
-    */
-    requestMsg(cmd){
-        // 网络有问题 缓存发送的消息
-        if(!GM.sdk.isConnectSdk()){
-            this._msgCaches.push(cmd);
-            return;
-        }
-        GM.sdk.sendSdk(cmd);
-    },
-
-    /*
     *    根据协议创建model实例
     */
     _createModel(modelName){
@@ -216,14 +193,6 @@ let MsgFactory = cc.Class({
         }
         return model;
     },
-
-    /*
-    *    获取缓存的model协议
-    */
-    getModel(modelName){
-        return this._modelMap[modelName];
-    },
-
     /*
     *    缓存model对象
     */
@@ -237,7 +206,24 @@ let MsgFactory = cc.Class({
         }
         this._modelMap[newModel.name] = newModel;
     },
-
+    /*
+    *    注册自定义model
+    *    {key: model文件名字, value: protokey即服务器标识的消息 cmd+action}
+    */
+    regModels(models){
+        for (let key in models) {
+            let ModelClass = require(key);
+            let model = new ModelClass();
+            this._addModel(model);
+        }
+        this.dumpModelMap();
+    },
+    /*
+    *    获取缓存的model协议
+    */
+    getModel(modelName){
+        return this._modelMap[modelName];
+    },
     hasModel(modelName){
         return this._modelMap[modelName] != null;
     },
@@ -247,7 +233,17 @@ let MsgFactory = cc.Class({
         // var model = this._modelMap[modelName];
         // model.destroy();
     },
-
+    /*
+    *    网络请求发送, 由消息中心处理 交由tcp处理
+    */
+    requestMsg(cmd){
+        // 网络有问题 缓存发送的消息
+        if(!GM.sdk.isConnectSdk()){
+            this._msgCaches.push(cmd);
+            return;
+        }
+        GM.sdk.sendSdk(cmd);
+    },
     /*
     *    清理缓存数据
     */
@@ -282,6 +278,16 @@ let MsgFactory = cc.Class({
         this._msgCaches = [];
         this._modelMap  = {};
         GM.Notify.ignoreAll(this);
+    },
+    /*
+    *    打印当前已经缓存的model
+    *    一种是空头model
+    *    一种是基于base_model的丰富model
+    */
+    dumpModelMap(){
+        for(let k in this._modelMap){
+            cc.log('model_key:'+k,' model_value:',this._modelMap[k].data);
+        }
     },
 
 });

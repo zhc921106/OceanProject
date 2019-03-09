@@ -5,6 +5,8 @@ cc.Class({
     },
     onLoad () {
         GM.mf = new MsgFactory();
+        GM.mf.regModels(this._getModels());
+        
         GM.Notify.listen(GM.Event.TCP_RECEIVE, this._onReceive, this);
     },
     _onReceive(params){
@@ -22,5 +24,11 @@ cc.Class({
     },
     onDestroy(){
 
+    },
+    _getModels(){
+        let models = {
+            'user_model':'user_info',
+        };
+        return models;
     },
 });
