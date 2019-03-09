@@ -1,5 +1,50 @@
 const util = GM.util;
-let SdkHelper = {
+/*
+*    平台差异性内容 由sdk内部处理
+*/
+let SdkHelper = cc.Class({
+    name: 'SdkHelper',
+    ctor(){
+        this.init();
+    },
+    properties: {
+
+    },
+    init(){
+        cc.game.on(cc.game.EVENT_HIDE,()=>{
+            if (!GM.StateInfo.isOnForeground) {
+                return;
+            }
+            GM.StateInfo.isOnForeground = false;
+            // tywx.NotificationCenter.trigger(tywx.EventType.GAME_HIDE);
+        });
+        cc.game.on(cc.game.EVENT_SHOW, ()=>{
+            if (GM.StateInfo.isOnForeground) {
+                return;
+            }
+            GM.StateInfo.isOnForeground = true;
+            // tywx.LOGE('', "+++++++++++++++++onShow+++++++++++++++++");
+            // tywx.NotificationCenter.trigger(tywx.EventType.GAME_SHOW);
+        });
+    },
+    /*
+    *    开始一个Tcp连接
+    */
+    startTcp(){
+        cc.log('SdkHelper startTcp',util.getTime());
+        if(this.isConnectSdk()){return;}
+        GM.Tcp.connect(GM.SystemInfo.webSocketUrl);
+    },
+    closeTcp(){
+        
+    },
+    sendSdk(data){
+        cc.log('SdkHelper sendSdk:',util.getTime(),data);
+        GM.Tcp.sendMsg(data);
+    },
+    isConnectSdk(){
+        return GM.Tcp.isConnected();
+    },
     guestLogin(code,force){
         let baseUrl = GM.SystemInfo.loginUrl+ 'open/v6/user/LoginBySnsIdNoVerify?';
         let data = {
@@ -38,23 +83,6 @@ let SdkHelper = {
             },
         });
     },
-    /*
-    *    开始一个Tcp连接
-    */
-    startTcp(){
-        cc.log('SdkHelper startTcp',util.getTime());
-        if(this.isConnectSdk()){return;}
-        GM.Tcp.connect(GM.SystemInfo.webSocketUrl);
-    },
-    closeTcp(){
-        
-    },
-    sendSdk(data){
-        cc.log('SdkHelper sendSdk:',util.getTime(),data);
-        GM.Tcp.sendMsg(data);
-    },
-    isConnectSdk(){
-        return GM.Tcp.isConnected();
-    },
-};    
-GM.sdk = SdkHelper;
+});
+GM.sdk = new SdkHelper();
+module.exports = SdkHelper;

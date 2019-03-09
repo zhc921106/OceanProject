@@ -105,7 +105,6 @@ cc.Class({
     _init(){
         this._bgsp = this.node.getChildByName('bg_sp').getComponent(cc.Sprite);   // scene bg
         this._pview = this.node.getChildByName('pop_view');                       // scene full view parent
-
     },
 
     /*
