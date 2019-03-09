@@ -1,3 +1,4 @@
+const util = GM.util;
 let SdkHelper = {
     guestLogin(code,force){
         let baseUrl = GM.SystemInfo.loginUrl+ 'open/v6/user/LoginBySnsIdNoVerify?';
@@ -14,10 +15,13 @@ let SdkHelper = {
             onSuccess(response){
                 let checkData = response;
                 if (!checkData || !checkData.result || checkData.result.code !== 0){
-                    cc.error('第一个失败');
+                    cc.error('SdkHelper 第一个失败');
                     return;
                 }
                 let result = checkData.result;
+                // data check
+                GM.SystemInfo.isCreate = result.isCreate;
+                GM.UserInfo.parseSnsData(result);
                 let ip = result.tcpsrv.ip;
                 let port = result.tcpsrv.wsport || result.tcpsrv.port;
                 let webSocketUrl;
@@ -28,22 +32,25 @@ let SdkHelper = {
                 }
                 GM.SystemInfo.webSocketUrl = webSocketUrl;
                 GM.Notify.trigger(GM.Event.SDK_LOGIN_SUCCESS,result);
-
             },
             onFail(params){
-                cc.error('0-0-000-');
                 GM.Notify.trigger(GM.Event.SDK_LOGIN_FAIL,params);
             },
         });
     },
-    connectTcp(){
-        // TODO 这里应该还有一些check
+    /*
+    *    开始一个Tcp连接
+    */
+    startTcp(){
+        cc.log('SdkHelper startTcp',util.getTime());
+        if(this.isConnectSdk()){return;}
         GM.Tcp.connect(GM.SystemInfo.webSocketUrl);
     },
     closeTcp(){
         
     },
     sendSdk(data){
+        cc.log('SdkHelper sendSdk:',util.getTime(),data);
         GM.Tcp.sendMsg(data);
     },
     isConnectSdk(){

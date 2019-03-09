@@ -1,30 +1,41 @@
 /*
 * Timer
 */
-const scheduler = cc.director.getScheduler();
 let Timer = {
     /**
      * 参数的含义依次是：回调的obj、回调函数、tick的间隔、不算这次还要重复的次数，开始tick的delay时间
      */
-    setTimer (obj, callback, interval,params){
+    setTimer (callback, interval,params){
         params = params || {};
         let repeatNum = params.repeatNum || cc.macro.REPEAT_FOREVER;
         let delay = params.delay || 0;
+        let obj = params.obj || this._getScene();
         let paused = false;
+        let scheduler = this._getScheduler();
         scheduler.schedule(callback, obj, interval, repeatNum, delay, paused);        
     },
     /**
      * 取消定时器
      */
-    cancelTimer:function(obj, callback){
+    cancelTimer:function(callback,obj){
+        obj = obj || this._getScene();
+        let scheduler = this._getScheduler();
         scheduler.unschedule(callback, obj);
     },
     /**
      * 判断定时器
      */
-    isScheduledTimer:function(obj, callback){
+    isScheduledTimer:function(callback,obj){
+        obj = obj || this._getScene();
+        let scheduler = this._getScheduler();
         return scheduler.isScheduled(callback, obj);
     },
+    _getScene(){
+        return cc.director.getScene();
+    },
+    _getScheduler(){
+        return cc.director.getScheduler();
+    },    
 };
 /*
 *    http tcp 服务
@@ -54,11 +65,11 @@ let TcpClient = {
     },
     startCheckTimer () {
         this.isTimerInited = true;
-        Timer.setTimer(cc.director, this.timerSchedule, 1);
+        Timer.setTimer(this.timerSchedule.bind(this), 1);
     },
     stopCheckTimer () {
         this.isTimerInited = false;
-        Timer.cancelTimer(cc.director, this.timerSchedule);
+        Timer.cancelTimer(this.timerSchedule);
     },
     connect (url){
         if (this.connectStatus == this.CONNECT_STATUS_OPENING
@@ -70,23 +81,23 @@ let TcpClient = {
     },
     doConnect (url) {
         var ws = new WebSocket(url);
-        ws.onopen = function (res) {
+        ws.onopen = (res)=>{
             this.connectStatus = this.CONNECT_STATUS_OK;
-            GM.Notify.trigger(GM.Event.TCP_OPENED);
             if (!this.isTimerInited) {
                 //启动TCP的定时检查机制,成功连接1次后将永久进行检查
                 this.startCheckTimer();
             }
+            GM.Notify.trigger(GM.Event.TCP_OPENED);
         };
-        ws.onerror = function (res) {
+        ws.onerror = (res)=> {
             this.connectStatus = this.CONNECT_STATUS_FAIL;
             GM.Notify.trigger(GM.Event.TCP_ERROR);
         };
-        ws.onclose = function (res) {
+        ws.onclose = (res)=> {
             this.connectStatus = this.CONNECT_STATUS_FAIL;
             GM.Notify.trigger(GM.Event.TCP_CLOSE);
         };
-        ws.onmessage = function (res) {
+        ws.onmessage = (res)=> {
             // TODO 在后台不处理消息 
             if (!GM.StateInfo.isOnForeground){
                 return;
@@ -101,7 +112,7 @@ let TcpClient = {
             if (strJson != null && strJson.length > 0) {
                 var _json = JSON.parse(strJson);
                 if (!this.filterCmds[_json.cmd]){
-                    cc.log("MsgClientTcp Receive:", msgStr);
+                    // cc.log("MsgClientTcp Receive:", msgStr);
                 }
                 GM.Notify.trigger(GM.Event.TCP_RECEIVE, _json);
             }
@@ -123,7 +134,7 @@ let TcpClient = {
         }
         var msgStr = JSON.stringify(data);
         if(!this.filterCmds[data.cmd]){
-            cc.log("MsgClientTcp Send:", msgStr);    
+            // cc.log("MsgClientTcp Send:", msgStr);
         }
         this.ws.send(msgStr);
     },
@@ -168,11 +179,11 @@ let TcpWxClient = {
     },
     startCheckTimer () {
         this.isTimerInited = true;
-        Timer.setTimer(cc.director, this.timerSchedule, 1);
+        Timer.setTimer( this.timerSchedule, 1);
     },
     stopCheckTimer () {
         this.isTimerInited = false;
-        Timer.cancelTimer(cc.director, this.timerSchedule);
+        Timer.cancelTimer( this.timerSchedule);
     },
 
     //以下为websocket连接相关方法
@@ -356,6 +367,10 @@ let HttpClient = {
                 var resJson = JSON.parse(response);
                 if (typeof obj.onSuccess == 'function') {obj.onSuccess(resJson);}
             } else {
+                // readyState 0 请求未初始化 1请求已建立还没有发送 2请求已发送正在处理 3请求处理中已有部分数据可用 4 相应已完成
+                if(xhr.status == 200 && (xhr.readyState == 2 || xhr.readyState == 3)){
+                    return;
+                }
                 if (typeof obj.onFail == 'function') {obj.onFail(response);}
             }
         };

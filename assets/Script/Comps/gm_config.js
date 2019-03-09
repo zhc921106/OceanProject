@@ -6,7 +6,7 @@ let cfg = {
     'GM_DEBUG':1,
 };
 let StateInfo = {
-	'isOnForeground': false,
+	'isOnForeground': true,
 };
 let SystemInfo = {
 	'webSocketUrl':'',
@@ -15,16 +15,17 @@ let SystemInfo = {
 	'gameId':720,
 	'clientId':'H5_5.1_weixin,tyGuest.alipayweb.0-hall720.tuyouxcx.shanxixcx',
 	'guestWxAppId':'wx6ac3f5090a6b99c5',
+	'isCreate':1,
+	"deviceId": "xiaoyouxi",
+
 };
-let UserInfo = {
-	userId:'111',
-	authorCode:'',
+let GameState = {
 
 };
 GM.cfg = cfg;
 GM.StateInfo = StateInfo;
 GM.SystemInfo = SystemInfo;
-GM.UserInfo = UserInfo;
+GM.GameState = GameState;
 /*
 *  GM: 全局
 *  GM.vm          视图管理

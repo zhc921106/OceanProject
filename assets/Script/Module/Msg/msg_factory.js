@@ -14,6 +14,7 @@ let MsgFactory = cc.Class({
         this._delay       = 0;     // 延迟处理消息
         this._useSequence = true;  // 是否使用缓存
         this._msgCaches = [];      // 断网时缓存需要发送的消息
+        this.init();
     },
     properties: {
         cmd:{
@@ -41,7 +42,24 @@ let MsgFactory = cc.Class({
             },
         }
     },
-
+    init(){
+        GM.Notify.listen(GM.Event.TCP_HEART_BEAT, this._onHeartBeat, this);  
+    },
+    _onHeartBeat(){
+        this._sendHeartBeat();
+    },
+    _sendHeartBeat(){
+        let cmd = {
+            'cmd':'heart_beat',
+            params: {
+                'userId': GM.UserInfo.userId,
+                'gameId': GM.SystemInfo.appId,
+                'clientId': GM.SystemInfo.clientId,
+                'deviceId': GM.SystemInfo.deviceId
+            }
+        };
+        this.requestMsg(cmd);
+    },
     /*
     *    是否使用队列
     */
@@ -134,8 +152,8 @@ let MsgFactory = cc.Class({
     /*
     *    缓存协议数据
     */
-    _addToSequence(){
-        this.sequence.unshift(response);
+    _addToSequence(response){
+        this._sequence.unshift(response);
     },
 
     /*
@@ -166,6 +184,7 @@ let MsgFactory = cc.Class({
             result   = response.result,
             action   = result.action;
         let protoKey = cmd + (action ? '_' + action : '');
+        cc.log('pop',protoKey,response);
         // let protocol = this.APP.Protocols[protoKey];
         let model = this._createModel(protoKey);
         model.parse(response);
@@ -177,7 +196,7 @@ let MsgFactory = cc.Class({
     */
     requestMsg(cmd){
         // 网络有问题 缓存发送的消息
-        if(GM.sdk.isConnectSdk()){
+        if(!GM.sdk.isConnectSdk()){
             this._msgCaches.push(cmd);
             return;
         }
@@ -262,6 +281,7 @@ let MsgFactory = cc.Class({
         this._sequence  = [];
         this._msgCaches = [];
         this._modelMap  = {};
+        GM.Notify.ignoreAll(this);
     },
 
 });

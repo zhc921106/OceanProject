@@ -23,7 +23,7 @@ GM.Notify = {
         });
     },
 
-    ignoreScope : function (scope) {
+    ignoreAll : function (scope) {
     	let obs;
         for(let msg in this.events){
             obs = this.events[msg];
@@ -77,7 +77,7 @@ GM.Event = {
     CMD_USER_INFO:'user_info',
     CMD_USER:'user',
     CMD_HEART_BEAT: 'heart_beat',
-    
+
 	// 页面消息事件
 	// 平台事件
 };
@@ -100,6 +100,16 @@ let util = {
     		if(err){ cc.error('util loadRes error:',err); return;}
     		callback(prefab);
     	});
+    },
+    getTime(){
+        let d = new Date();
+        let t = d.getTime();
+        let ts = Math.round(t/1000).toString();
+        return ts;
+    },
+    getTimeTs(){
+        let d = new Date();
+        return d.getTime();
     },
 
     /*

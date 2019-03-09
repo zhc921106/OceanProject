@@ -48,4 +48,5 @@ let BaseRequest = cc.Class({
         GM.mf.requestMsg(cmd);
 	},
 });
-GM.Req = module.exports = BaseRequest;
+GM.Req = new BaseRequest();
+module.exports = BaseRequest;

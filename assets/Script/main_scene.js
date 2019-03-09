@@ -1,11 +1,3 @@
-/*================================================================
- * FileName main_scene
- * Description 当前主场景
- * Created on 04/03/19 by ocean
- * Copyright (c) 2019 OCEAN
-================================================================*/
-
-// cfg.GM_DEBUG && cc.error(this.name);
 const cfg = GM.cfg;
 const util = GM.util;
 const vm = GM.vm;
@@ -18,27 +10,20 @@ cc.Class({
         this._regEvts();
         this._initPersist();
         this._init();
-        this._test();
-    },
-    _test(){
-        // this.schedule(()=>{
-        //     let scene = util.getScene();
-        //     for(let i = 0; i < scene.children.length; i++){
-        //         cfg.GM_DEBUG && cc.error(this.name,scene.children[i].name,scene.children[i].zIndex);
-        //     }
-        // },3);
-        // vm.openPrefab('Prefabs/Shop/Shop_View',{'hi':1},parent);
-        // vm.openPrefab('Prefabs/Shop/Match_View',{'hi':1},parent);
     },
     onClickTest(event,custom){
         cfg.GM_DEBUG && this.log('onClickTest',custom);
         if(custom == 1){
-            let params = {vKey:'Shop_View',data:{'shop':1}};
-            GM.Notify.trigger(GM.Event.GM_UI_REPLACE_FULL_VIEW,params);
+            // let params = {vKey:'Shop_View',data:{'shop':1}};
+            // GM.Notify.trigger(GM.Event.GM_UI_REPLACE_FULL_VIEW,params);
         }else if(custom == 2){
             // 1. 网络请求(快_派发出去) 2. 打开页面(快_成功后取下数据)
             GM.sdk.guestLogin(GM.util.getLocalUUID());
-        }else if(custom == 3){    
+        }else if(custom == 3){  
+            // GM.Timer.setTimer(this._onLogout.bind(this), 1);  
+            // GM.Timer.setTimer(()=>{
+            //     this._onLogout();
+            // }, 1);
         }else if(custom == 4){
             vm.openPrefab('Prefabs/Pop/Hall_Pop_Confirm',{'hi':1});
             vm.openQueuePrefab('Prefabs/Pop/Hall_Pop_Turn',{'hi':1});
@@ -46,6 +31,29 @@ cc.Class({
             vm.openQueuePrefab('Prefabs/Pop/Hall_Pop_Turn',{'hi':1});
             vm.openQueuePrefab('Prefabs/Pop/Hall_Pop_Activity',{'hi':1});
         }
+    },
+    /*
+    *    网络服务
+    */
+    _onTcpClose(){
+        this.log('_onTcpClose',util.getTime());
+    },
+    _onTcpOpened(){
+        this.log('_onTcpOpened',util.getTime());
+        GM.Req.reqBindUser();
+    },
+    _onTcpError(){
+        this.log('_onTcpError');
+    },
+    _onLogout(){
+        this.log('_onLogout');
+    },
+    _onSDKLoginFail(){
+        this.log('_onSDKLoginFail');
+    },
+    _onSDKLoginSuccess(response){
+        this.log('_onSDKLoginSuccess');
+        GM.sdk.startTcp();
     },
     _regEvts(){
         GM.Notify.listen(GM.Event.GM_UI_REPLACE_FULL_VIEW, this.onPopView, this);
@@ -59,14 +67,6 @@ cc.Class({
         
         GM.Notify.listen(GM.Event.UPDATE_UER_INFO_LOC, this._onUserInfo, this);
     },
-
-    /*
-    *    1. 网络请求 ok 打开页面
-    *    2. 打开页面 ok 网络请求
-    *    3. 网络请求 && 打开页面  ok
-    *    4. 引入model的使用
-    */
-
 
     /*
     *    显示全屏view {assetUrl:'',vKey:'',data:{}}
@@ -123,32 +123,6 @@ cc.Class({
         node.zIndex = util.max_zindex;
         node.parent = scene;
     },
-    /*
-    *    网络服务
-    */
-    _onSDKLoginFail(){
-        this.log('_onSDKLoginFail');
-    },
-    _onSDKLoginSuccess(response){
-        this.log('_onSDKLoginSuccess',response);
-        // TODO check Tcp state
-        // TODO tcp open
-
-    },
-    _onTcpClose(){
-        this.log('_onTcpClose');
-    },
-    _onTcpOpened(){
-        this.log('_onTcpOpened');
-        // GM.Req.reqBindUser();
-    },
-    _onTcpError(){
-        this.log('_onTcpError');
-    },
-    _onLogout(){
-        this.log('_onLogout');
-    },
-
     // start () {},
     // onEnable (){},
     // onDestroy (){},

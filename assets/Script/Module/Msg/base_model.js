@@ -4,6 +4,7 @@ let BaseModel = cc.Class({
         this._cmd = '';
         this._data = '';
         this._name = ''; // name 应该是这个消息结构的唯一标识
+        this._action = '';
         // this._cmd = cmd;
         // this._data = data.result || data;
     },
@@ -33,9 +34,14 @@ let BaseModel = cc.Class({
             }
         },
     },
-    parse(cmd,data){
-        this._cmd = cmd;
-        this._data = data.result || data; 
+    parse(response){
+        if(response.result) {
+            this._data   = response.result;
+            this._cmd    = response.cmd;
+            this._action = this._data.action;
+        } else {
+            this._data = response;
+        }
     },
     getValue(key,defaultValue){
         if(this[key] != undefined){
